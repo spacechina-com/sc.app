@@ -34,15 +34,16 @@ public class IndexController extends BaseController {
 		Pd pd = new Pd();
 		pd = this.getPd();
 
-		pd.put("COMPANY_ID", pd.getString("company_id"));
+		Pd pdm = new Pd();
+		pdm.put("COMPANY_ID", pd.getString("company_id"));
 
-		pd = rest.post(IConstants.SC_SERVICE_KEY, "merchant/findBy", pd, Pd.class);
+		pdm = rest.post(IConstants.SC_SERVICE_KEY, "merchant/findBy", pdm, Pd.class);
 
-		if (null == pd || StringUtils.isEmpty(pd.getString("APPID"))
-				|| StringUtils.isEmpty(pd.getString("APPSECRET"))) {
+		if (null == pdm || StringUtils.isEmpty(pdm.getString("APPID"))
+				|| StringUtils.isEmpty(pdm.getString("APPSECRET"))) {
 			mv.setViewName("init/warn");
 		} else {
-			mv.addObject("APPID", pd.getString("APPID"));
+			mv.addObject("APPID", pdm.getString("APPID"));
 			mv.addObject("RETURN", URLEncoder.encode(HOSTNAME + "/scapp/init?company_id=" + pd.getString("company_id")
 					+ "&goods_id=" + pd.getString("goods_id") + "&batch_id=" + pd.getString("batch_id"), "UTF-8"));
 			mv.setViewName("init/init");
