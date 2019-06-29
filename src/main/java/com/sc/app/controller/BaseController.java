@@ -156,7 +156,7 @@ public class BaseController {
 	}
 
 	public String openId() {
-		return userSession().getString("WXOPEN_ID");
+		return userSession().getString("OPENID");
 	}
 
 }
