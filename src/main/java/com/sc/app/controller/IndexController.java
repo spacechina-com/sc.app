@@ -44,8 +44,8 @@ public class IndexController extends BaseController {
 			mv.setViewName("init/warn");
 		} else {
 			mv.addObject("APPID", pdm.getString("APPID"));
-			mv.addObject("RETURN", URLEncoder.encode(HOSTNAME + "/scapp/init?company_id=" + pd.getString("company_id")
-					+ "&goods_id=" + pd.getString("goods_id") + "&batch_id=" + pd.getString("batch_id"), "UTF-8"));
+			mv.addObject("RETURN", URLEncoder.encode(HOSTNAME + "/scapp/init?company_id=" + pd.get("company_id")
+					+ "&goods_id=" + pd.get("goods_id") + "&batch_id=" + pd.get("batch_id"), "UTF-8"));
 			mv.setViewName("init/init");
 		}
 
@@ -56,6 +56,8 @@ public class IndexController extends BaseController {
 	public ModelAndView init(HttpServletRequest request) throws Exception {
 		logger.info("=============进入初始化=============");
 		ModelAndView mv = new ModelAndView();
+		Pd pd = new Pd();
+		pd = this.getPd();
 
 		String code = request.getParameter("code");
 		logger.info("wxcode=" + code);
@@ -94,7 +96,8 @@ public class IndexController extends BaseController {
 			rest.post(IConstants.SC_SERVICE_KEY, "member/edit", person, Pd.class);
 		}
 		getSession().setAttribute(IConstants.USER_SESSION, person);
-		mv.setViewName("redirect:/home");
+		mv.setViewName("redirect:/home?company_id=" + pd.get("company_id") + "&goods_id=" + pd.get("goods_id")
+				+ "&batch_id=" + pd.get("batch_id"));
 		return mv;
 	}
 
