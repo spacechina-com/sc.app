@@ -27,7 +27,7 @@
 			</div>
 		<div class="row" style="padding:10px;padding-top:0px;">
 			<div class="col-33"><div style="position:relative;width:100%;"><span style="position:absolute;bottom:20px;text-align: center;color: #FFFFFF;width:100%;">扫码验证</span><img style="width:100%;" src="<%=request.getContextPath()%>/static/images/image1.png" alt=""></div></div>
-			<div class="col-33"><a class="external" href="<%=request.getContextPath()%>/activities?company_id=${pd.company_id}&goods_id=${pd.goods_id}&batch_id=${pd.batch_id}"><div style="position:relative;width:100%;"><span style="position:absolute;bottom:20px;text-align: center;color: #FFFFFF;width:100%;">营销活动</span><img style="width:100%;" src="<%=request.getContextPath()%>/static/images/image2.png" alt=""></div></a></div>
+			<div class="col-33"><a class="external" href="<%=request.getContextPath()%>/activities?COMPANY_ID=${pd.COMPANY_ID}&GOODS_ID=${pd.GOODS_ID}&BATCH_ID=${pd.BATCH_ID}"><div style="position:relative;width:100%;"><span style="position:absolute;bottom:20px;text-align: center;color: #FFFFFF;width:100%;">营销活动</span><img style="width:100%;" src="<%=request.getContextPath()%>/static/images/image2.png" alt=""></div></a></div>
 			<div class="col-33"><div style="position:relative;width:100%;"><span style="position:absolute;bottom:20px;text-align: center;color: #FFFFFF;width:100%;">积分商城</span><img style="width:100%;" src="<%=request.getContextPath()%>/static/images/image3.png" alt=""></div></div>
 		</div>
 		<div class="row" style="padding:10px;padding-top:0px;">

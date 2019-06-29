@@ -98,8 +98,8 @@ public class IndexController extends BaseController {
 			rest.post(IConstants.SC_SERVICE_KEY, "member/edit", person, Pd.class);
 		}
 		getSession().setAttribute(IConstants.USER_SESSION, person);
-		mv.setViewName("redirect:/home?company_id=" + pd.get("company_id") + "&goods_id=" + pd.get("goods_id")
-				+ "&batch_id=" + pd.get("batch_id"));
+		mv.setViewName("redirect:/home?COMPANY_ID=" + pd.get("company_id") + "&GOODS_ID=" + pd.get("goods_id")
+				+ "&BATCH_ID=" + pd.get("batch_id"));
 		return mv;
 	}
 
