@@ -26,6 +26,7 @@ public class ActivitiesController extends BaseController {
 		pda.put("COMPANY_ID", pd.getString("COMPANY_ID"));
 		pda.put("GOODS_ID", pd.getString("GOODS_ID"));
 		pda.put("BATCH_ID", pd.getString("BATCH_ID"));
+		pda.put("STATE", IConstants.STRING_1);
 		pda = rest.post(IConstants.SC_SERVICE_KEY, "activities/findBy", pda, Pd.class);
 
 		if (null != pda) {

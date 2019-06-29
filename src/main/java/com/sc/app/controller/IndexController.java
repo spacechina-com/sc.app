@@ -44,8 +44,10 @@ public class IndexController extends BaseController {
 			mv.setViewName("init/warn");
 		} else {
 			mv.addObject("APPID", pdm.getString("APPID"));
-			mv.addObject("RETURN", URLEncoder.encode(HOSTNAME + "/scapp/init?company_id=" + pd.get("company_id")
-					+ "&goods_id=" + pd.get("goods_id") + "&batch_id=" + pd.get("batch_id"), "UTF-8"));
+			mv.addObject("RETURN",
+					URLEncoder.encode(HOSTNAME + "/scapp/init?company_id=" + pd.get("company_id") + "&goods_id="
+							+ pd.get("goods_id") + "&batch_id="
+							+ (pd.get("batch_id") != null ? pd.get("batch_id") : ""), "UTF-8"));
 			mv.setViewName("init/init");
 		}
 
