@@ -54,19 +54,20 @@ public class IndexController extends BaseController {
 		person = rest.post(IConstants.SC_SERVICE_KEY, "member/findBy", person, Pd.class);
 
 		JSONObject userJO = WXUtil.user(openID);
+		logger.info("微信用户信息:" + userJO.toString());
 		Pd user = new Pd();
 		user.put("OPENID", userJO.getString("openid"));
-		user.put("NICKNAME", userJO.getString("nickname"));
-		user.put("SEX", userJO.getString("sex"));
-		user.put("PHOTO", userJO.getString("headimgurl"));
+		//user.put("NICKNAME", userJO.getString("nickname"));
+		//user.put("SEX", userJO.getString("sex"));
+		//user.put("PHOTO", userJO.getString("headimgurl"));
 		user.put("CDT", DateUtil.getTime());
 
 		if (null == person) {
 			person = rest.post(IConstants.SC_SERVICE_KEY, "member/save", user, Pd.class);
 		} else {
-			person.put("NICKNAME", userJO.getString("nickname"));
-			person.put("SEX", userJO.getString("sex"));
-			person.put("PHOTO", userJO.getString("headimgurl"));
+			//person.put("NICKNAME", userJO.getString("nickname"));
+			//person.put("SEX", userJO.getString("sex"));
+			//person.put("PHOTO", userJO.getString("headimgurl"));
 			rest.post(IConstants.SC_SERVICE_KEY, "member/edit", person, Pd.class);
 		}
 		getSession().setAttribute(IConstants.USER_SESSION, person);
