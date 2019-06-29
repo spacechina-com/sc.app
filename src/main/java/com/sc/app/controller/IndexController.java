@@ -25,7 +25,7 @@ public class IndexController extends BaseController {
 	@Autowired
 	RestTemplateUtil rest;
 
-	@Value("server.hostname")
+	@Value("${server.hostname}")
 	private String HOSTNAME;
 
 	@RequestMapping(value = { "/welcome", "/" })
