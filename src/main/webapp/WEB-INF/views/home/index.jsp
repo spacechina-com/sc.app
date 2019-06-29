@@ -16,10 +16,23 @@
 <div class="page-group">
 	<div class="page page-current">
 		<div class="content">
-		
+		<div class="swiper-container" data-space-between='10' data-autoplay='3000'>
+		    <div class="swiper-wrapper">
+		      <div class="swiper-slide"><img height="300" src="<%=request.getContextPath()%>/static/images/swiper1.jpg" alt=""></div>
+		      <div class="swiper-slide"><img height="300" src="<%=request.getContextPath()%>/static/images/swiper2.jpg" alt=""></div>
+		      <div class="swiper-slide"><img height="300" src="<%=request.getContextPath()%>/static/images/swiper3.jpg" alt=""></div>
+		    </div>
+		    <div class="swiper-pagination"></div>
+		  </div>
 		</div>
+		<nav class="bar bar-tab">123</nav>
 	</div>
 </div>
 </body>
 <%@ include file="../common/headjs.jsp"%>
+<script type="text/javascript">
+
+$.init();
+
+</script>
 </html>
