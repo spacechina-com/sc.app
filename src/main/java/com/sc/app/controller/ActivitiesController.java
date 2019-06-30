@@ -28,6 +28,7 @@ public class ActivitiesController extends BaseController {
 		pda.put("BATCH_ID", pd.getString("BATCH_ID"));
 		pda.put("STATE", IConstants.STRING_1);
 		pda = rest.post(IConstants.SC_SERVICE_KEY, "activities/findBy", pda, Pd.class);
+		mv.addObject("pda", pda);
 
 		if (null != pda) {
 			Pd pdm = new Pd();
