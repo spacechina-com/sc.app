@@ -63,7 +63,7 @@ function createRate(){
 					
 				});
 			}else{
-				$.alert(data.message,function(){
+				$.alert(data.data.DESCRIPTION,function(){
 					
 				});
 			

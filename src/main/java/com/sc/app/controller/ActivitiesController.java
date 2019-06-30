@@ -108,6 +108,7 @@ public class ActivitiesController extends BaseController {
 		pd.put("STATE", IConstants.STRING_0);
 		rest.post(IConstants.SC_SERVICE_KEY, "drawuser/save", pd, Pd.class);
 		pd.put("PRIZEITEMS_INDEX", rate[1]);
+		pd.put("DESCRIPTION", rate[2]);
 		rm.setData(pd);
 		return rm;
 	}
@@ -154,7 +155,7 @@ public class ActivitiesController extends BaseController {
 	}
 
 	private String[] createRate(Pd pd, int limit) {
-		String[] result = new String[2];
+		String[] result = new String[3];
 		Pd pdap = new Pd();
 		pdap.put("ACTIVITIES_ID", pd.getString("ACTIVITIES_ID"));
 		List<Pd> activitiesprizeitemsData = rest.postForList(IConstants.SC_SERVICE_KEY, "activities/listAllPrizeitems",
@@ -182,6 +183,7 @@ public class ActivitiesController extends BaseController {
 		for (int i = 0; i < activitiesprizeitemsData.size(); i++) {
 			if (activitiesprizeitemsData.get(i).getString("PRIZEITEMS_ID").equals(prizeitem_id)) {
 				result[1] = i + "";
+				result[2] = activitiesprizeitemsData.get(i).getString("DESCRIPTION");
 				break;
 			}
 		}
