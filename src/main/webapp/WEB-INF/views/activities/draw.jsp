@@ -131,7 +131,7 @@
 		    		"ADDRESS_ID":"${pdar.ADDRESS_ID}",
 		    		"REALNAME":$("#REALNAME").val(),
 		    		"PHONE":$("#PHONE").val(),
-		    		"ADDRESS":$("#ADDRESS").val()
+		    		"DESCRIPTION":$("#ADDRESS").val()
 		    	},
 		    	async: false,
 				dataType:'json',
