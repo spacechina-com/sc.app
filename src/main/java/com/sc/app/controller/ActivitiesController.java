@@ -108,7 +108,7 @@ public class ActivitiesController extends BaseController {
 		ReturnModel rm = new ReturnModel();
 		Pd pd = new Pd();
 		pd = this.getPd();
-		pd = rest.post(IConstants.SC_SERVICE_KEY, "member/saveAddress", pd, Pd.class);
+		pd = rest.post(IConstants.SC_SERVICE_KEY, "member/editAddress", pd, Pd.class);
 		rm.setData(pd);
 		return rm;
 	}

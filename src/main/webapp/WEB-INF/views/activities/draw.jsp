@@ -128,7 +128,7 @@
 				type: "POST",
 				url: '<%=request.getContextPath()%>/activities/manageAddress',
 		    	data:{
-		    		"MEMBER_ID":"${USER_SESSION.MEMBER_ID}",
+		    		"ADDRESS_ID":"${pdar.ADDRESS_ID}",
 		    		"REALNAME":$("#REALNAME").val(),
 		    		"PHONE":$("#PHONE").val(),
 		    		"ADDRESS":$("#ADDRESS").val()
