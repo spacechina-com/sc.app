@@ -82,7 +82,34 @@ public class ActivitiesController extends BaseController {
 				new ParameterizedTypeReference<List<Pd>>() {
 				});
 		mv.addObject("drawuserData", drawuserData);
+
+		Pd pda = new Pd();
+		pda.put("ACTIVITIES_ID", pd.getString("ACTIVITIES_ID"));
+		pda = rest.post(IConstants.SC_SERVICE_KEY, "activities/find", pda, Pd.class);
+		mv.addObject("pda", pda);
+
+		Pd pdar = new Pd();
+		pdar.put("MEMBER_ID", pd.getString("MEMBER_ID"));
+		pdar = rest.post(IConstants.SC_SERVICE_KEY, "member/findAddress", pdar, Pd.class);
+		if (null == pdar) {
+			pdar = new Pd();
+			pdar.put("MEMBER_ID", pd.getString("MEMBER_ID"));
+			pdar = rest.post(IConstants.SC_SERVICE_KEY, "member/saveAddress", pdar, Pd.class);
+		}
+		mv.addObject("pdar", pdar);
+
 		mv.setViewName("activities/draw");
 		return mv;
+	}
+
+	@RequestMapping(value = "activities/manageAddress")
+	@ResponseBody
+	public ReturnModel manageAddress() throws Exception {
+		ReturnModel rm = new ReturnModel();
+		Pd pd = new Pd();
+		pd = this.getPd();
+		pd = rest.post(IConstants.SC_SERVICE_KEY, "member/saveAddress", pd, Pd.class);
+		rm.setData(pd);
+		return rm;
 	}
 }
