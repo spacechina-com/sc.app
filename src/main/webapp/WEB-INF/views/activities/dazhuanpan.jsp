@@ -13,13 +13,11 @@
 	<%@ include file="../common/headcss.jsp"%>
 	<style type="text/css">
 		/* 大转盘样式 */
-		.banner{display:block;width:95%;margin-left:auto;margin-right:auto;margin-bottom: 20px;}
+		.banner{display:block;width:95%;margin-left:auto;margin-right:auto;}
 		.banner .turnplate{display:block;width:100%;position:relative;}
 		.banner .turnplate canvas.item{width:100%;}
-		.banner .turnplate img.pointer{position:absolute;width:31.5%;height:42.5%;left:34.6%;top:21%;}
+		.banner .turnplate img.pointer{position:absolute;width:31.5%;height:42.5%;left:34.6%;top:23%;}
 	</style>
-	<script type="text/javascript" src="<%=request.getContextPath()%>/static/dazhuanpan/js/jquery-1.10.2.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath()%>/static/dazhuanpan/js/awardRotate.js"></script>
 </head>
 <body>
 <div class="page-group">
@@ -30,11 +28,12 @@
 			</div>
 			<div class="row">
 			<div class="col-100" style="padding-left:30px;padding-right:30px;">
-			<img src="<%=request.getContextPath()%>/static/dazhuanpan/images/1.png" id="shan-img" style="display:none;" />
-    		<img src="<%=request.getContextPath()%>/static/dazhuanpan/images/2.png" id="sorry-img" style="display:none;" />
+			<c:forEach var="ap" items="${activitiesprizeitemsData}" varStatus="step">
+				<img id="image_${step.index}" src="<%=request.getContextPath()%>/file/image?FILENAME=${ap.IMAGE_PATH}" alt="图片" width="5px" style="display:none; "/>
+    		</c:forEach>
 			<div class="banner">
 				<div class="turnplate" style="background-image:url(<%=request.getContextPath()%>/static/dazhuanpan/images/turnplate-bg.png);background-size:100% 100%;">
-					<canvas class="item" id="wheelcanvas" width="422px" height="422px"></canvas>
+					<canvas class="item" id="wheelcanvas" width="422px" height="422px" style="margin-top:5px;"></canvas>
 					<img class="pointer" src="<%=request.getContextPath()%>/static/dazhuanpan/images/turnplate-pointer.png"/>
 				</div>
 			</div>
@@ -45,13 +44,23 @@
 				<p>${pda.DESCRIPTION}</p>
 			</div>
 			</div>
+			<div class="row">
+			<div class="col-100" style="padding-left:20px;padding-right:20px;">
+				<a class="external" href="<%=request.getContextPath()%>/activities/listDraw?ACTIVITIES_ID=${pda.ACTIVITIES_ID}&MEMBER_ID=${USER_SESSION.MEMBER_ID}" class="button button-big" style="color:#FFFFFF;border:1px #FFFFFF solid;">查看我的抽奖记录</a>
+			</div>
+			</div>
 		</div>
 		<nav class="bar bar-tab"><div style="text-align: center;margin:5px;color:#888888;font-size:14px;">Copyright ©2019 All Rights Reserved</div></nav>
 	</div>
 </div>
 </body>
 <%@ include file="../common/headjs.jsp"%>
+<script type="text/javascript" src="<%=request.getContextPath()%>/static/dazhuanpan/js/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/static/dazhuanpan/js/awardRotate.js"></script>
 <script type="text/javascript">
+var jq = $.noConflict();
+$.alert("我在测试");
+
 var turnplate={
 		restaraunts:[],				//大转盘奖品名称
 		colors:[],					//大转盘奖品区块对应背景颜色
@@ -63,14 +72,22 @@ var turnplate={
 		bRotate:false				//false:停止;ture:旋转
 };
 
-$(document).ready(function(){
+function suialert(text){
+	$.alert(text);
+}
+
+$(function(){
 	//动态添加大转盘的奖品与奖品区域背景颜色
-	turnplate.restaraunts = ["50M免费流量包", "10闪币", "谢谢参与", "5闪币", "10M免费流量包", "20M免费流量包", "20闪币 ", "30M免费流量包", "100M免费流量包", "2闪币"];
+	<c:forEach var="ap" items="${activitiesprizeitemsData}">
+		turnplate.restaraunts.push('${ap.DESCRIPTION}');
+	</c:forEach>
+	
+	//turnplate.restaraunts = ["50M免费流量包", "10闪币", "谢谢参与", "5闪币", "10M免费流量包", "20M免费流量包", "20闪币 ", "30M免费流量包", "100M免费流量包", "2闪币"];
 	turnplate.colors = ["#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF","#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF","#FFF4D6", "#FFFFFF"];
 
 	
 	var rotateTimeOut = function (){
-		$('#wheelcanvas').rotate({
+		jq('#wheelcanvas').rotate({
 			angle:0,
 			animateTo:2160,
 			duration:8000,
@@ -88,13 +105,13 @@ $(document).ready(function(){
 		}else{
 			angles = 360 - angles + 270;
 		}
-		$('#wheelcanvas').stopRotate();
-		$('#wheelcanvas').rotate({
+		jq('#wheelcanvas').stopRotate();
+		jq('#wheelcanvas').rotate({
 			angle:0,
 			animateTo:angles+1800,
 			duration:8000,
 			callback:function (){
-				alert(txt);
+				suialert(txt);
 				turnplate.bRotate = !turnplate.bRotate;
 			}
 		});
@@ -103,43 +120,64 @@ $(document).ready(function(){
 	$('.pointer').click(function (){
 		if(turnplate.bRotate)return;
 		turnplate.bRotate = !turnplate.bRotate;
-		//获取随机数(奖品个数范围内)
-		var item = rnd(1,turnplate.restaraunts.length);
-		//奖品数量等于10,指针落在对应奖品区域的中心角度[252, 216, 180, 144, 108, 72, 36, 360, 324, 288]
-		rotateFn(item, turnplate.restaraunts[item-1]);
-		/* switch (item) {
-			case 1:
-				rotateFn(252, turnplate.restaraunts[0]);
-				break;
-			case 2:
-				rotateFn(216, turnplate.restaraunts[1]);
-				break;
-			case 3:
-				rotateFn(180, turnplate.restaraunts[2]);
-				break;
-			case 4:
-				rotateFn(144, turnplate.restaraunts[3]);
-				break;
-			case 5:
-				rotateFn(108, turnplate.restaraunts[4]);
-				break;
-			case 6:
-				rotateFn(72, turnplate.restaraunts[5]);
-				break;
-			case 7:
-				rotateFn(36, turnplate.restaraunts[6]);
-				break;
-			case 8:
-				rotateFn(360, turnplate.restaraunts[7]);
-				break;
-			case 9:
-				rotateFn(324, turnplate.restaraunts[8]);
-				break;
-			case 10:
-				rotateFn(288, turnplate.restaraunts[9]);
-				break;
-		} */
-		console.log(item);
+		
+        $.ajax({
+			type: "POST",
+			url: '<%=request.getContextPath()%>/activities/createDraw',
+	    	data:{
+	    		"ACTIVITIES_ID":"${pda.ACTIVITIES_ID}",
+	    		"MEMBER_ID":"${USER_SESSION.MEMBER_ID}"
+	    	},
+	    	async: false,
+			dataType:'json',
+			cache: false,
+			beforeSend:function(){
+				
+			},
+			success: function(data){
+				//获取随机数(奖品个数范围内)
+				//var item = rnd(1,turnplate.restaraunts.length);
+				var item = rnd(parseInt(data.data.PRIZEITEMS_INDEX)+1,parseInt(data.data.PRIZEITEMS_INDEX)+1)
+				//奖品数量等于10,指针落在对应奖品区域的中心角度[252, 216, 180, 144, 108, 72, 36, 360, 324, 288]
+				rotateFn(item, turnplate.restaraunts[item-1]);
+				/* switch (item) {
+					case 1:
+						rotateFn(252, turnplate.restaraunts[0]);
+						break;
+					case 2:
+						rotateFn(216, turnplate.restaraunts[1]);
+						break;
+					case 3:
+						rotateFn(180, turnplate.restaraunts[2]);
+						break;
+					case 4:
+						rotateFn(144, turnplate.restaraunts[3]);
+						break;
+					case 5:
+						rotateFn(108, turnplate.restaraunts[4]);
+						break;
+					case 6:
+						rotateFn(72, turnplate.restaraunts[5]);
+						break;
+					case 7:
+						rotateFn(36, turnplate.restaraunts[6]);
+						break;
+					case 8:
+						rotateFn(360, turnplate.restaraunts[7]);
+						break;
+					case 9:
+						rotateFn(324, turnplate.restaraunts[8]);
+						break;
+					case 10:
+						rotateFn(288, turnplate.restaraunts[9]);
+						break;
+				} */
+				console.log(item);
+			},
+			error:function(){
+				
+			}
+		});
 	});
 });
 
@@ -212,7 +250,16 @@ function drawRouletteWheel() {
 			  ctx.fillText(text, -ctx.measureText(text).width / 2, 0);
 		  }
 		  
+		
+		  var img= document.getElementById("image_"+i);
+		  img.onload=function(){  
+			  ctx.drawImage(img,-15,10);      
+		  };  
+		  ctx.drawImage(img,-15,10); 
+		 
+		  
 		  //添加对应图标
+		  /**
 		  if(text.indexOf("闪币")>0){
 			  var img= document.getElementById("shan-img");
 			  img.onload=function(){  
@@ -226,6 +273,7 @@ function drawRouletteWheel() {
 			  };  
 			  ctx.drawImage(img,-15,10);  
 		  }
+		  */
 		  //把当前画布返回（调整）到上一个save()状态之前 
 		  ctx.restore();
 		  //----绘制奖品结束----

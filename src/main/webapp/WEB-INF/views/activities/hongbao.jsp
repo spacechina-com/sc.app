@@ -23,9 +23,4 @@
 </div>
 </body>
 <%@ include file="../common/headjs.jsp"%>
-<script type="text/javascript">
-
-$.init();
-
-</script>
 </html>
