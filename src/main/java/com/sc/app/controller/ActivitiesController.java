@@ -63,6 +63,20 @@ public class ActivitiesController extends BaseController {
 		ReturnModel rm = new ReturnModel();
 		Pd pd = new Pd();
 		pd = this.getPd();
+
+		Pd pda = new Pd();
+		pda.put("ACTIVITIES_ID", pd.getString("ACTIVITIES_ID"));
+		pda = rest.post(IConstants.SC_SERVICE_KEY, "activities/find", pda, Pd.class);
+
+		List<Pd> drawuserData = rest.postForList(IConstants.SC_SERVICE_KEY, "drawuser/listAll", pd,
+				new ParameterizedTypeReference<List<Pd>>() {
+				});
+		if (drawuserData.size() >= Integer.parseInt(pda.getString("SINGLE_LIMIT"))) {
+			rm.setFlag(false);
+			rm.setMessage("抽奖次数已达到上线");
+			return rm;
+		}
+
 		pd.put("PRIZEITEMS_ID", "7");
 		pd.put("CREATE_TIME", DateUtil.getTime());
 		pd.put("STATE", IConstants.STRING_0);

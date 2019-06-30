@@ -133,6 +133,13 @@ $(function(){
 				
 			},
 			success: function(data){
+				
+				if(!data.flag){
+					$.alert(data.message，function(){
+						return;
+					});
+				}
+				
 				//获取随机数(奖品个数范围内)
 				//var item = rnd(1,turnplate.restaraunts.length);
 				var item = rnd(parseInt(data.data.PRIZEITEMS_INDEX)+1,parseInt(data.data.PRIZEITEMS_INDEX)+1)
