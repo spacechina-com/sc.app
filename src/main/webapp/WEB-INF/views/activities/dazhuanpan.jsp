@@ -135,7 +135,7 @@ $(function(){
 			success: function(data){
 				
 				if(!data.flag){
-					$.alert(data.message，function(){
+					$.alert(data.message,function(){
 						return;
 					});
 				}
