@@ -100,7 +100,7 @@
   </div>
   <div class="content-block">
     <div class="row">
-      <div class="col-50"><a href="#listdata" class="button button-big button-fill button-danger">取消</a></div>
+      <div class="col-50"><a id="backButton" href="#listdata" class="button button-big button-fill button-danger">取消</a></div>
       <div class="col-50"><a href="javascript:transportposition();" class="button button-big button-fill button-success">提交</a></div>
     </div>
   </div>
@@ -141,7 +141,11 @@
 					
 				},
 				success: function(data){
-					
+					if(data.flag){
+						$.alert('保存地址成功',function(){
+							$("#backButton").click();
+						})
+					}
 				},
 				error:function(){
 					
