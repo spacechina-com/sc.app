@@ -136,9 +136,10 @@ $(function(){
 				
 				if(!data.flag){
 					$.alert(data.message,function(){
-						return;
+						
 					});
-				}
+					turnplate.bRotate = !turnplate.bRotate;
+				}else{
 				
 				//获取随机数(奖品个数范围内)
 				//var item = rnd(1,turnplate.restaraunts.length);
@@ -178,6 +179,7 @@ $(function(){
 						break;
 				} */
 				console.log(item);
+				}
 			},
 			error:function(){
 				
