@@ -2,6 +2,7 @@ package com.sc.app.controller;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Controller;
@@ -68,13 +69,33 @@ public class ActivitiesController extends BaseController {
 		pda.put("ACTIVITIES_ID", pd.getString("ACTIVITIES_ID"));
 		pda = rest.post(IConstants.SC_SERVICE_KEY, "activities/find", pda, Pd.class);
 
-		List<Pd> drawuserData = rest.postForList(IConstants.SC_SERVICE_KEY, "drawuser/listAll", pd,
-				new ParameterizedTypeReference<List<Pd>>() {
-				});
-		if (drawuserData.size() >= Integer.parseInt(pda.getString("SINGLE_LIMIT"))) {
-			rm.setFlag(false);
-			rm.setMessage("抽奖次数已达到上线");
-			return rm;
+		if (StringUtils.isNotEmpty(pda.getString("SINGLE_LIMIT"))) {
+			Pd pds = new Pd();
+			pds.put("ACTIVITIES_ID", pd.getString("ACTIVITIES_ID"));
+			pds.put("MEMBER_ID", pd.getString("MEMBER_ID"));
+			List<Pd> drawuserData = rest.postForList(IConstants.SC_SERVICE_KEY, "drawuser/listAll", pds,
+					new ParameterizedTypeReference<List<Pd>>() {
+					});
+			if (drawuserData.size() >= Integer.parseInt(pda.getString("SINGLE_LIMIT"))) {
+				rm.setFlag(false);
+				rm.setMessage("单人抽奖次数已达到上线");
+				return rm;
+			}
+		}
+
+		if (StringUtils.isNotEmpty(pda.getString("DAY_LIMIT"))) {
+			Pd pdd = new Pd();
+			pdd.put("ACTIVITIES_ID", pd.getString("ACTIVITIES_ID"));
+			pdd.put("MEMBER_ID", pd.getString("MEMBER_ID"));
+			pdd.put("DAYSTR", DateUtil.getDay());
+			List<Pd> drawuserData = rest.postForList(IConstants.SC_SERVICE_KEY, "drawuser/listAll", pdd,
+					new ParameterizedTypeReference<List<Pd>>() {
+					});
+			if (drawuserData.size() >= Integer.parseInt(pda.getString("DAY_LIMIT"))) {
+				rm.setFlag(false);
+				rm.setMessage("单人日抽奖次数已达到上线");
+				return rm;
+			}
 		}
 
 		pd.put("PRIZEITEMS_ID", "7");
