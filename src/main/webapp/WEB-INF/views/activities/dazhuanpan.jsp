@@ -46,7 +46,7 @@
 			</div>
 			<div class="row">
 			<div class="col-100" style="padding-left:20px;padding-right:20px;">
-				<a class="external" href="<%=request.getContextPath()%>/activities/listDraw?ACTIVITIES_ID=${pda.ACTIVITIES_ID}&MEMBER_ID=${USER_SESSION.MEMBER_ID}" class="button button-big" style="color:#FFFFFF;border:1px #FFFFFF solid;">查看我的抽奖记录</a>
+				<a href="<%=request.getContextPath()%>/activities/listDraw?ACTIVITIES_ID=${pda.ACTIVITIES_ID}&MEMBER_ID=${USER_SESSION.MEMBER_ID}" class="external button button-big" style="color:#FFFFFF;border:1px #FFFFFF solid;">查看我的抽奖记录</a>
 			</div>
 			</div>
 		</div>

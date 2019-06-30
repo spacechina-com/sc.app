@@ -63,10 +63,10 @@ public class ActivitiesController extends BaseController {
 		ReturnModel rm = new ReturnModel();
 		Pd pd = new Pd();
 		pd = this.getPd();
-		pd.put("PRIZEITEM_ID", "7");
+		pd.put("PRIZEITEMS_ID", "7");
 		pd.put("CREATE_TIME", DateUtil.getTime());
 		pd.put("STATE", IConstants.STRING_0);
-
+		rest.post(IConstants.SC_SERVICE_KEY, "drawuser/save", pd, Pd.class);
 		pd.put("PRIZEITEMS_INDEX", 0);
 		rm.setData(pd);
 		return rm;
