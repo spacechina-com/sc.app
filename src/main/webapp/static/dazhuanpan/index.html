@@ -1,56 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="../common/top.jsp"%>
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>营销活动</title>
-	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
-	<link rel="shortcut icon" href="/favicon.ico">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<%@ include file="../common/headcss.jsp"%>
-	<style type="text/css">
-		/* 大转盘样式 */
-		.banner{display:block;width:95%;margin-left:auto;margin-right:auto;margin-bottom: 20px;}
-		.banner .turnplate{display:block;width:100%;position:relative;}
-		.banner .turnplate canvas.item{width:100%;}
-		.banner .turnplate img.pointer{position:absolute;width:31.5%;height:42.5%;left:34.6%;top:21%;}
-	</style>
-	<script type="text/javascript" src="<%=request.getContextPath()%>/static/dazhuanpan/js/jquery-1.10.2.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath()%>/static/dazhuanpan/js/awardRotate.js"></script>
-</head>
-<body>
-<div class="page-group">
-	<div class="page page-current">
-		<div class="content" style="background-image:url(<%=request.getContextPath()%>/file/image?FILENAME=${pda.BACK_PATH});background-size:100% 100%;">
-			<div class="row">
-			<div class="col-100"><div style="padding:30px;text-align:center;font-size:1rem;color:#FFFFFF;font-weight:bold;">${pda.TOPIC}</div></div>
-			</div>
-			<div class="row">
-			<div class="col-100" style="padding-left:30px;padding-right:30px;">
-			<img src="<%=request.getContextPath()%>/static/dazhuanpan/images/1.png" id="shan-img" style="display:none;" />
-    		<img src="<%=request.getContextPath()%>/static/dazhuanpan/images/2.png" id="sorry-img" style="display:none;" />
-			<div class="banner">
-				<div class="turnplate" style="background-image:url(<%=request.getContextPath()%>/static/dazhuanpan/images/turnplate-bg.png);background-size:100% 100%;">
-					<canvas class="item" id="wheelcanvas" width="422px" height="422px"></canvas>
-					<img class="pointer" src="<%=request.getContextPath()%>/static/dazhuanpan/images/turnplate-pointer.png"/>
-				</div>
-			</div>
-			</div>
-			</div>
-			<div class="row">
-			<div class="col-100" style="padding-left:20px;padding-right:20px;font-size:0.75rem;color:#FFFFFF;">
-				<p>${pda.DESCRIPTION}</p>
-			</div>
-			</div>
-		</div>
-		<nav class="bar bar-tab"><div style="text-align: center;margin:5px;color:#888888;font-size:14px;">Copyright ©2019 All Rights Reserved</div></nav>
-	</div>
-</div>
-</body>
-<%@ include file="../common/headjs.jsp"%>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>jQuery+HTML5微信大转盘抽奖代码 - 站长素材</title>
+
+<link href="style.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="js/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="js/awardRotate.js"></script>
+
 <script type="text/javascript">
 var turnplate={
 		restaraunts:[],				//大转盘奖品名称
@@ -234,4 +194,20 @@ function drawRouletteWheel() {
 }
 
 </script>
+</head>
+<body style="background:#e62d2d;overflow-x:hidden;">
+    <img src="images/1.png" id="shan-img" style="display:none;" />
+    <img src="images/2.png" id="sorry-img" style="display:none;" />
+	<div class="banner">
+		<div class="turnplate" style="background-image:url(images/turnplate-bg.png);background-size:100% 100%;">
+			<canvas class="item" id="wheelcanvas" width="422px" height="422px"></canvas>
+			<img class="pointer" src="images/turnplate-pointer.png"/>
+		</div>
+	</div>
+
+<div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';">
+<p>适用浏览器：360、FireFox、Chrome、Safari、Opera、傲游、搜狗、世界之窗. 不支持IE8及以下浏览器。</p>
+<p>来源：<a href="http://sc.chinaz.com/" target="_blank">站长素材</a></p>
+</div>
+</body>
 </html>
