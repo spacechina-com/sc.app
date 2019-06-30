@@ -1,6 +1,9 @@
 package com.sc.app.controller;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,11 +101,13 @@ public class ActivitiesController extends BaseController {
 			}
 		}
 
-		pd.put("PRIZEITEMS_ID", "7");
+		String[] rate = createRate(pda, 1000);
+
+		pd.put("PRIZEITEMS_ID", rate[0]);
 		pd.put("CREATE_TIME", DateUtil.getTime());
 		pd.put("STATE", IConstants.STRING_0);
 		rest.post(IConstants.SC_SERVICE_KEY, "drawuser/save", pd, Pd.class);
-		pd.put("PRIZEITEMS_INDEX", 0);
+		pd.put("PRIZEITEMS_INDEX", rate[1]);
 		rm.setData(pd);
 		return rm;
 	}
@@ -146,5 +151,40 @@ public class ActivitiesController extends BaseController {
 		pd = rest.post(IConstants.SC_SERVICE_KEY, "member/editAddress", pd, Pd.class);
 		rm.setData(pd);
 		return rm;
+	}
+
+	private String[] createRate(Pd pd, int limit) {
+		String[] result = new String[2];
+		Pd pdap = new Pd();
+		pdap.put("ACTIVITIES_ID", pd.getString("ACTIVITIES_ID"));
+		List<Pd> activitiesprizeitemsData = rest.postForList(IConstants.SC_SERVICE_KEY, "activities/listAllPrizeitems",
+				pdap, new ParameterizedTypeReference<List<Pd>>() {
+				});
+		List<String> temp = new ArrayList<String>();
+		for (Pd one : activitiesprizeitemsData) {
+			int p = Integer.parseInt(one.getString("PERCENT"));
+			for (int i = 0; i < p; i++) {
+				temp.add(one.getString("PRIZEITEMS_ID"));
+			}
+		}
+
+		if (temp.size() >= limit) {
+			temp = temp.subList(0, limit);
+		} else {
+
+		}
+
+		Collections.shuffle(temp);
+
+		int index = new Random().nextInt(temp.size());
+		String prizeitem_id = temp.get(index);
+		result[0] = prizeitem_id;
+		for (int i = 0; i < activitiesprizeitemsData.size(); i++) {
+			if (activitiesprizeitemsData.get(i).getString("PRIZEITEMS_ID").equals(prizeitem_id)) {
+				result[1] = i + "";
+				break;
+			}
+		}
+		return result;
 	}
 }
