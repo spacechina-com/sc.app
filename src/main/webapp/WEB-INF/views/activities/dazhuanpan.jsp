@@ -59,8 +59,6 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/static/dazhuanpan/js/awardRotate.js"></script>
 <script type="text/javascript">
 var jq = $.noConflict();
-$.alert("我在测试");
-
 var turnplate={
 		restaraunts:[],				//大转盘奖品名称
 		colors:[],					//大转盘奖品区块对应背景颜色
