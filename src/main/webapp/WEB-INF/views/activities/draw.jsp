@@ -69,7 +69,7 @@
           <div class="item-inner">
             <div class="item-title label">姓名</div>
             <div class="item-input">
-              <input id="REALNAME" type="text" placeholder="真实姓名">
+              <input id="REALNAME" type="text" placeholder="真实姓名" value="${pdar.REALNAME}">
             </div>
           </div>
         </div>
@@ -80,7 +80,7 @@
           <div class="item-inner">
             <div class="item-title label">电话</div>
             <div class="item-input">
-              <input id="PHONE" type="text" placeholder="联系方式">
+              <input id="PHONE" type="text" placeholder="联系方式" value="${pdar.PHONE}">
             </div>
           </div>
         </div>
@@ -91,7 +91,7 @@
           <div class="item-inner">
             <div class="item-title label">快递住址</div>
             <div class="item-input">
-              <textarea id="ADDRESS" placeholder="这里输入完整住址"></textarea>
+              <textarea id="ADDRESS" placeholder="这里输入完整住址">${pdar.DESCRIPTION}</textarea>
             </div>
           </div>
         </div>
