@@ -103,9 +103,14 @@ public class ActivitiesController extends BaseController {
 
 		String[] rate = createRate(pda, 1000);
 
+		String AUTOHANDER = IConstants.STRING_0;
+		if (IConstants.STRING_1.equals(rate[3])) {
+			AUTOHANDER = IConstants.STRING_1;
+		}
+
 		pd.put("PRIZEITEMS_ID", rate[0]);
 		pd.put("CREATE_TIME", DateUtil.getTime());
-		pd.put("STATE", IConstants.STRING_0);
+		pd.put("STATE", AUTOHANDER);
 		rest.post(IConstants.SC_SERVICE_KEY, "drawuser/save", pd, Pd.class);
 		pd.put("PRIZEITEMS_INDEX", rate[1]);
 		pd.put("DESCRIPTION", rate[2]);
@@ -155,7 +160,7 @@ public class ActivitiesController extends BaseController {
 	}
 
 	private String[] createRate(Pd pd, int limit) {
-		String[] result = new String[3];
+		String[] result = new String[4];
 		Pd pdap = new Pd();
 		pdap.put("ACTIVITIES_ID", pd.getString("ACTIVITIES_ID"));
 		List<Pd> activitiesprizeitemsData = rest.postForList(IConstants.SC_SERVICE_KEY, "activities/listAllPrizeitems",
@@ -184,6 +189,7 @@ public class ActivitiesController extends BaseController {
 			if (activitiesprizeitemsData.get(i).getString("PRIZEITEMS_ID").equals(prizeitem_id)) {
 				result[1] = i + "";
 				result[2] = activitiesprizeitemsData.get(i).getString("DESCRIPTION");
+				result[3] = activitiesprizeitemsData.get(i).getString("AUTOHANDER");
 				break;
 			}
 		}
