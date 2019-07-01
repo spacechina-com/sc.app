@@ -84,17 +84,26 @@ public class IndexController extends BaseController {
 		logger.info("微信用户信息:" + userJO.toString());
 		Pd user = new Pd();
 		user.put("OPENID", userJO.getString("openid"));
-		// user.put("NICKNAME", userJO.getString("nickname"));
-		// user.put("SEX", userJO.getString("sex"));
-		// user.put("PHOTO", userJO.getString("headimgurl"));
+
+		try {
+			user.put("NICKNAME", userJO.getString("nickname"));
+			user.put("SEX", userJO.getString("sex"));
+			user.put("PHOTO", userJO.getString("headimgurl"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		user.put("CDT", DateUtil.getTime());
 
 		if (null == person) {
 			person = rest.post(IConstants.SC_SERVICE_KEY, "member/save", user, Pd.class);
 		} else {
-			// person.put("NICKNAME", userJO.getString("nickname"));
-			// person.put("SEX", userJO.getString("sex"));
-			// person.put("PHOTO", userJO.getString("headimgurl"));
+			try {
+				person.put("NICKNAME", userJO.getString("nickname"));
+				person.put("SEX", userJO.getString("sex"));
+				person.put("PHOTO", userJO.getString("headimgurl"));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			rest.post(IConstants.SC_SERVICE_KEY, "member/edit", person, Pd.class);
 		}
 		getSession().setAttribute(IConstants.USER_SESSION, person);
