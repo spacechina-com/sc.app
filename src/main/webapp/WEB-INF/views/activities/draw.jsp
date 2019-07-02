@@ -23,7 +23,7 @@
 		        <ul>
 		          <li class="item-content">
 		          	<div class="item-media">
-		              <img src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" width="44">
+		              <img src="<%=request.getContextPath()%>/file/image?FILENAME=${var.IMAGE_PATH}" width="50">
 		            </div>
 		            <div class="item-inner">
 		              <div class="item-title-row">
