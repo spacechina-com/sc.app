@@ -61,6 +61,13 @@ public class IndexController extends BaseController {
 		Pd pd = new Pd();
 		pd = this.getPd();
 
+		Pd pdm = new Pd();
+		pdm.put("COMPANY_ID", pd.getString("company_id"));
+		pdm = rest.post(IConstants.SC_SERVICE_KEY, "merchant/findBy", pdm, Pd.class);
+
+		String APPID = pdm.getString("APPID");
+		String APPSECRET = pdm.getString("APPSECRET");
+
 		String code = request.getParameter("code");
 		logger.info("wxcode=" + code);
 		if (StringUtils.isEmpty(code)) {
@@ -68,7 +75,7 @@ public class IndexController extends BaseController {
 			mv.setViewName("redirect:/");
 			return mv;
 		}
-		String openID = WXUtil.openId(code);
+		String openID = new WXUtil(APPID, APPSECRET).openId(code);
 		logger.info("openid=" + openID);
 		if (StringUtils.isEmpty(openID)) {
 			logger.info("openid为空重定向初始化");
@@ -80,7 +87,7 @@ public class IndexController extends BaseController {
 		person.put("OPENID", openID);
 		person = rest.post(IConstants.SC_SERVICE_KEY, "member/findBy", person, Pd.class);
 
-		JSONObject userJO = WXUtil.user(openID);
+		JSONObject userJO = new WXUtil(APPID, APPSECRET).user(openID);
 		logger.info("微信用户信息:" + userJO.toString());
 		Pd user = new Pd();
 		user.put("OPENID", userJO.getString("openid"));
@@ -95,6 +102,7 @@ public class IndexController extends BaseController {
 		user.put("CDT", DateUtil.getTime());
 
 		if (null == person) {
+			user.put("COMPANY_ID", pd.get("company_id"));
 			person = rest.post(IConstants.SC_SERVICE_KEY, "member/save", user, Pd.class);
 		} else {
 			try {

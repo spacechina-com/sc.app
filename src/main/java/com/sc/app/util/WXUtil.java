@@ -4,11 +4,16 @@ import net.sf.json.JSONObject;
 
 public class WXUtil {
 
-	private static String appId = "wx1927131d08fe2a04";
+	private String appId;
 
-	private static String appSecret = "2f0d28354ccb7290ca1ac16c4dda02e3";
+	private String appSecret;
 
-	public static String token() {
+	public WXUtil(String appId, String appSecret) {
+		this.appId = appId;
+		this.appSecret = appSecret;
+	}
+
+	public String token() {
 		String rs = null;
 		try {
 			String str = HttpUtils.get("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid="
@@ -21,7 +26,7 @@ public class WXUtil {
 		return rs;
 	}
 
-	public static String openId(String code) {
+	public String openId(String code) {
 		String rs = null;
 		try {
 			String str = HttpUtils.get("https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + appId + "&secret="
@@ -34,7 +39,7 @@ public class WXUtil {
 		return rs;
 	}
 
-	public static JSONObject sendMessage(String message, String openID) {
+	public JSONObject sendMessage(String message, String openID) {
 		String token = token();
 		String json = "{\"touser\": \"" + openID + "\",\"msgtype\": \"text\", \"text\": {\"content\": \"" + message
 				+ "\"}}";
@@ -49,7 +54,7 @@ public class WXUtil {
 		return rs;
 	}
 
-	public static JSONObject user(String openID) {
+	public JSONObject user(String openID) {
 		String token = token();
 		JSONObject rs = null;
 		try {
