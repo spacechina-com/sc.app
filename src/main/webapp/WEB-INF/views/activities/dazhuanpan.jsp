@@ -29,7 +29,7 @@
 			<div class="row">
 			<div class="col-100" style="padding-left:30px;padding-right:30px;">
 			<c:forEach var="ap" items="${activitiesprizeitemsData}" varStatus="step">
-				<img id="image_${step.index}" src="<%=request.getContextPath()%>/file/image?FILENAME=${ap.IMAGE_PATH}" alt="图片" width="5px" style="display:none; "/>
+				<img id="image_${step.index}" src="<%=request.getContextPath()%>/file/image?FILENAME=${ap.IMAGE_PATH}" alt="图片" width="30" height="30" style="display:none; "/>
     		</c:forEach>
 			<div class="banner">
 				<div class="turnplate" style="background-image:url(<%=request.getContextPath()%>/static/dazhuanpan/images/turnplate-bg.png);background-size:100% 100%;">
