@@ -50,7 +50,7 @@
 			          </c:forEach> 	  
 		  <div class="content-block">
     <div class="row">
-      <div class="col-50"><a href="<%=request.getContextPath()%>/activities?snid=${snid}" class="external button button-big button-fill">返回抽奖</a></div>
+      <div class="col-50"><a href="<%=request.getContextPath()%>/activities?snid=${snid}" class="external button button-big">返回抽奖</a></div>
       <div class="col-50"><a href="#transportposition" class="button button-big button-fill">地址管理</a></div>
     </div>
   </div>
@@ -100,8 +100,8 @@
   </div>
   <div class="content-block">
     <div class="row">
-      <div class="col-50"><a id="backButton" href="#listdata" class="button button-big button-fill button-danger">取消</a></div>
-      <div class="col-50"><a href="javascript:transportposition();" class="button button-big button-fill button-success">提交</a></div>
+      <div class="col-50"><a id="backButton" href="#listdata" class="button button-big">取消</a></div>
+      <div class="col-50"><a href="javascript:transportposition();" class="button button-big button-fill">提交</a></div>
     </div>
   </div>
   </div>
