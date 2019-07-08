@@ -15,8 +15,8 @@
 <body>
 <div class="page-group">
 	<div class="page page-current">
-		<div class="content">
-		参数信息异常	
+		<div class="content content-padded docs-icons" style="text-align:center;line-height:200px;">
+		<span class="icon icon-emoji"></span>参数信息异常	
 		</div>
 		<nav class="bar bar-tab"><div style="text-align: center;margin:5px;color:#888888;font-size:14px;">Copyright ©2019 All Rights Reserved</div></nav>
 	</div>
