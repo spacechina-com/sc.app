@@ -32,10 +32,20 @@ public class ActivitiesController extends BaseController {
 		Pd pd = new Pd();
 		pd = this.getPd();
 
+		String snid = pd.getString("snid");
+
+		Pd pdc = new Pd();
+		pdc.put("CODE", snid);
+		pdc = rest.post(IConstants.SC_SERVICE_KEY, "common/info/find", pdc, Pd.class);
+
+		if (null == pdc) {
+			logger.info("参数异常");
+			mv.setViewName("temp/param");
+			return mv;
+		}
+
 		Pd pda = new Pd();
-		pda.put("COMPANY_ID", pd.getString("COMPANY_ID"));
-		pda.put("GOODS_ID", pd.getString("GOODS_ID"));
-		pda.put("BATCH_ID", pd.getString("BATCH_ID"));
+		pda.putAll(pdc);
 		pda.put("STATE", IConstants.STRING_1);
 		pda = rest.post(IConstants.SC_SERVICE_KEY, "activities/findBy", pda, Pd.class);
 		mv.addObject("pda", pda);
@@ -54,7 +64,8 @@ public class ActivitiesController extends BaseController {
 			mv.addObject("activitiesprizeitemsData", activitiesprizeitemsData);
 
 		} else {
-			mv.setViewName("activities/index");
+			logger.info("无关联活动");
+			mv.setViewName("temp/nodata");
 		}
 
 		mv.addObject("pd", pd);

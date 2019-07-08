@@ -5,7 +5,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>营销活动</title>
+	<title>云码系统</title>
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
 	<link rel="shortcut icon" href="/favicon.ico">
 	<meta name="apple-mobile-web-app-capable" content="yes">
@@ -16,7 +16,7 @@
 <div class="page-group">
 	<div class="page page-current">
 		<div class="content">
-			
+		公众号配置异常	
 		</div>
 		<nav class="bar bar-tab"><div style="text-align: center;margin:5px;color:#888888;font-size:14px;">Copyright ©2019 All Rights Reserved</div></nav>
 	</div>

@@ -28,26 +28,36 @@ public class IndexController extends BaseController {
 	@Value("${server.hostname}")
 	private String HOSTNAME;
 
-	@RequestMapping(value = { "/welcome", "/" })
+	@RequestMapping(value = { "/welcome" })
 	public ModelAndView index() throws Exception {
+		logger.info("=============进入系统=============");
 		ModelAndView mv = new ModelAndView();
 		Pd pd = new Pd();
 		pd = this.getPd();
 
-		Pd pdm = new Pd();
-		pdm.put("COMPANY_ID", pd.getString("company_id"));
+		String snid = pd.getString("snid");
 
+		Pd pdc = new Pd();
+		pdc.put("CODE", snid);
+		pdc = rest.post(IConstants.SC_SERVICE_KEY, "common/info/find", pdc, Pd.class);
+
+		if (null == pdc) {
+			logger.info("参数异常");
+			mv.setViewName("temp/param");
+			return mv;
+		}
+
+		Pd pdm = new Pd();
+		pdm.put("COMPANY_ID", pdc.getString("COMPANY_ID"));
 		pdm = rest.post(IConstants.SC_SERVICE_KEY, "merchant/findBy", pdm, Pd.class);
 
 		if (null == pdm || StringUtils.isEmpty(pdm.getString("APPID"))
 				|| StringUtils.isEmpty(pdm.getString("APPSECRET"))) {
-			mv.setViewName("init/warn");
+			logger.info("公众号配置缺失");
+			mv.setViewName("temp/warn");
 		} else {
 			mv.addObject("APPID", pdm.getString("APPID"));
-			mv.addObject("RETURN",
-					URLEncoder.encode(HOSTNAME + "/scapp/init?company_id=" + pd.get("company_id") + "&goods_id="
-							+ pd.get("goods_id") + "&batch_id="
-							+ (pd.get("batch_id") != null ? pd.get("batch_id") : ""), "UTF-8"));
+			mv.addObject("RETURN", URLEncoder.encode(HOSTNAME + "/scapp/init?snid=" + snid, "UTF-8"));
 			mv.setViewName("init/init");
 		}
 
@@ -61,25 +71,43 @@ public class IndexController extends BaseController {
 		Pd pd = new Pd();
 		pd = this.getPd();
 
+		String snid = pd.getString("snid");
+
+		Pd pdc = new Pd();
+		pdc.put("CODE", snid);
+		pdc = rest.post(IConstants.SC_SERVICE_KEY, "common/info/find", pdc, Pd.class);
+
+		if (null == pdc) {
+			logger.info("参数异常");
+			mv.setViewName("temp/param");
+			return mv;
+		}
+
 		Pd pdm = new Pd();
-		pdm.put("COMPANY_ID", pd.getString("company_id"));
+		pdm.put("COMPANY_ID", pdc.getString("COMPANY_ID"));
 		pdm = rest.post(IConstants.SC_SERVICE_KEY, "merchant/findBy", pdm, Pd.class);
 
 		String APPID = pdm.getString("APPID");
 		String APPSECRET = pdm.getString("APPSECRET");
 
+		if (StringUtils.isEmpty(APPID) || StringUtils.isEmpty(APPSECRET)) {
+			logger.info("公众号配置缺失");
+			mv.setViewName("temp/warn");
+			return mv;
+		}
+
 		String code = request.getParameter("code");
 		logger.info("wxcode=" + code);
 		if (StringUtils.isEmpty(code)) {
 			logger.info("wxcode为空重定向初始化");
-			mv.setViewName("redirect:/");
+			mv.setViewName("redirect:/welcome?snid=" + snid);
 			return mv;
 		}
 		String openID = new WXUtil(APPID, APPSECRET).openId(code);
 		logger.info("openid=" + openID);
 		if (StringUtils.isEmpty(openID)) {
 			logger.info("openid为空重定向初始化");
-			mv.setViewName("redirect:/");
+			mv.setViewName("redirect:/welcome?snid=" + snid);
 			return mv;
 		}
 
@@ -115,8 +143,7 @@ public class IndexController extends BaseController {
 			rest.post(IConstants.SC_SERVICE_KEY, "member/edit", person, Pd.class);
 		}
 		getSession().setAttribute(IConstants.USER_SESSION, person);
-		mv.setViewName("redirect:/home?COMPANY_ID=" + pd.get("company_id") + "&GOODS_ID=" + pd.get("goods_id")
-				+ "&BATCH_ID=" + pd.get("batch_id"));
+		mv.setViewName("redirect:/activities?snid=" + snid);
 		return mv;
 	}
 
