@@ -68,6 +68,7 @@ public class ActivitiesController extends BaseController {
 			mv.setViewName("temp/nodata");
 		}
 
+		mv.addObject("snid", snid);
 		mv.addObject("pd", pd);
 		return mv;
 	}
@@ -135,6 +136,9 @@ public class ActivitiesController extends BaseController {
 		ModelAndView mv = new ModelAndView();
 		Pd pd = new Pd();
 		pd = this.getPd();
+		
+		String snid = pd.getString("snid");
+		
 		List<Pd> drawuserData = rest.postForList(IConstants.SC_SERVICE_KEY, "drawuser/listAll", pd,
 				new ParameterizedTypeReference<List<Pd>>() {
 				});
@@ -154,6 +158,8 @@ public class ActivitiesController extends BaseController {
 			pdar = rest.post(IConstants.SC_SERVICE_KEY, "member/saveAddress", pdar, Pd.class);
 		}
 		mv.addObject("pdar", pdar);
+		
+		mv.addObject("snid", snid);
 
 		mv.setViewName("activities/draw");
 		return mv;

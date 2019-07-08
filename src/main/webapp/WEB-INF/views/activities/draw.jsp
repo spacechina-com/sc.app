@@ -50,11 +50,11 @@
 			          </c:forEach> 	  
 		  <div class="content-block">
     <div class="row">
-      <div class="col-50"><a href="<%=request.getContextPath()%>/activities?COMPANY_ID=${pda.COMPANY_ID}&GOODS_ID=${pda.GOODS_ID}&BATCH_ID=${pda.BATCH_ID}" class="external button button-big button-fill">返回抽奖</a></div>
+      <div class="col-50"><a href="<%=request.getContextPath()%>/activities?snid=${snid}" class="external button button-big button-fill">返回抽奖</a></div>
       <div class="col-50"><a href="#transportposition" class="button button-big button-fill">地址管理</a></div>
     </div>
   </div>
-		  
+		<h5>&nbsp;</h5>  
 		</div>
 		<nav class="bar bar-tab"><div style="text-align: center;margin:5px;color:#888888;font-size:14px;">Copyright ©2019 All Rights Reserved</div></nav>
 	</div>
