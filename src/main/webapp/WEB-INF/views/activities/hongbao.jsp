@@ -64,7 +64,9 @@ function createRate(){
 				});
 			}else{
 				$.alert(data.data.DESCRIPTION,function(){
-					
+					if(data.data.DAY_UNUSED){
+						$.toast(data.data.DAY_UNUSED)
+					}
 				});
 			
 			}

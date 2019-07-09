@@ -70,10 +70,6 @@ var turnplate={
 		bRotate:false				//false:停止;ture:旋转
 };
 
-function suialert(text){
-	$.alert(text);
-}
-
 $(function(){
 	//动态添加大转盘的奖品与奖品区域背景颜色
 	<c:forEach var="ap" items="${activitiesprizeitemsData}">
@@ -96,7 +92,7 @@ $(function(){
 	};
 
 	//旋转转盘 item:奖品位置; txt：提示语;
-	var rotateFn = function (item, txt){
+	var rotateFn = function (item, txt, unused){
 		var angles = item * (360 / turnplate.restaraunts.length) - (360 / (turnplate.restaraunts.length*2));
 		if(angles<270){
 			angles = 270 - angles; 
@@ -109,7 +105,11 @@ $(function(){
 			animateTo:angles+1800,
 			duration:8000,
 			callback:function (){
-				suialert(txt);
+				$.alert(txt,function(){
+					if(unused){
+						$.toast(unused)
+					}
+				});
 				turnplate.bRotate = !turnplate.bRotate;
 			}
 		});
@@ -145,7 +145,7 @@ $(function(){
 				//var item = rnd(1,turnplate.restaraunts.length);
 				var item = rnd(parseInt(data.data.PRIZEITEMS_INDEX)+1,parseInt(data.data.PRIZEITEMS_INDEX)+1)
 				//奖品数量等于10,指针落在对应奖品区域的中心角度[252, 216, 180, 144, 108, 72, 36, 360, 324, 288]
-				rotateFn(item, turnplate.restaraunts[item-1]);
+				rotateFn(item, turnplate.restaraunts[item-1],data.data.DAY_UNUSED);
 				/* switch (item) {
 					case 1:
 						rotateFn(252, turnplate.restaraunts[0]);

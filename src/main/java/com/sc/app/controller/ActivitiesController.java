@@ -98,6 +98,8 @@ public class ActivitiesController extends BaseController {
 			}
 		}
 
+		String day_unused = null;
+
 		if (StringUtils.isNotEmpty(pda.getString("DAY_LIMIT"))) {
 			Pd pdd = new Pd();
 			pdd.put("ACTIVITIES_ID", pd.getString("ACTIVITIES_ID"));
@@ -110,6 +112,9 @@ public class ActivitiesController extends BaseController {
 				rm.setFlag(false);
 				rm.setMessage("单人日抽奖次数已达到上线");
 				return rm;
+			} else {
+				day_unused = "今日剩余" + (Integer.parseInt(pda.getString("DAY_LIMIT")) - drawuserData.size() - 1)
+						+ "次抽奖机会";
 			}
 		}
 
@@ -126,6 +131,7 @@ public class ActivitiesController extends BaseController {
 		rest.post(IConstants.SC_SERVICE_KEY, "drawuser/save", pd, Pd.class);
 		pd.put("PRIZEITEMS_INDEX", rate[1]);
 		pd.put("DESCRIPTION", rate[2]);
+		pd.put("DAY_UNUSED", day_unused);
 		rm.setData(pd);
 		return rm;
 	}
@@ -136,9 +142,9 @@ public class ActivitiesController extends BaseController {
 		ModelAndView mv = new ModelAndView();
 		Pd pd = new Pd();
 		pd = this.getPd();
-		
+
 		String snid = pd.getString("snid");
-		
+
 		List<Pd> drawuserData = rest.postForList(IConstants.SC_SERVICE_KEY, "drawuser/listAll", pd,
 				new ParameterizedTypeReference<List<Pd>>() {
 				});
@@ -158,7 +164,7 @@ public class ActivitiesController extends BaseController {
 			pdar = rest.post(IConstants.SC_SERVICE_KEY, "member/saveAddress", pdar, Pd.class);
 		}
 		mv.addObject("pdar", pdar);
-		
+
 		mv.addObject("snid", snid);
 
 		mv.setViewName("activities/draw");
