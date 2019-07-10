@@ -97,7 +97,7 @@ public class ActivitiesController extends BaseController {
 					});
 			if (allData.size() >= Integer.parseInt(pda.getString("PEOPLE_LIMIT")) && meData.size() == 0) {
 				rm.setFlag(false);
-				rm.setMessage("单码可用人数已达到上线");
+				rm.setMessage("单码可用人数已达到上线,建议购买产品扫描新码参与活动");
 				return rm;
 			} else {
 				if (meData.size() == 0) {

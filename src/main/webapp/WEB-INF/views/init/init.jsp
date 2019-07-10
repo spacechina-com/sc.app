@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>云码系统初始化</title>
+<title>营销活动初始化</title>
 </head>
 <body>
 <script type="text/javascript">
