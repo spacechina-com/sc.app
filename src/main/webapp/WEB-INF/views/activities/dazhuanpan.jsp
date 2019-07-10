@@ -124,7 +124,8 @@ $(function(){
 			url: '<%=request.getContextPath()%>/activities/createDraw',
 	    	data:{
 	    		"ACTIVITIES_ID":"${pda.ACTIVITIES_ID}",
-	    		"MEMBER_ID":"${USER_SESSION.MEMBER_ID}"
+	    		"MEMBER_ID":"${USER_SESSION.MEMBER_ID}",
+	    		"SNID":"${snid}"
 	    	},
 	    	async: false,
 			dataType:'json',

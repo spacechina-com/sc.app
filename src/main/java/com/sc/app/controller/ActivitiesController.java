@@ -84,6 +84,29 @@ public class ActivitiesController extends BaseController {
 		pda.put("ACTIVITIES_ID", pd.getString("ACTIVITIES_ID"));
 		pda = rest.post(IConstants.SC_SERVICE_KEY, "activities/find", pda, Pd.class);
 
+		if (StringUtils.isNotEmpty(pda.getString("PEOPLE_LIMIT"))) {
+			Pd pds = new Pd();
+			pds.put("ACTIVITIES_ID", pd.getString("ACTIVITIES_ID"));
+			pds.put("SNID", pd.getString("SNID"));
+			List<Pd> allData = rest.postForList(IConstants.SC_SERVICE_KEY, "activities/listAllCodes", pds,
+					new ParameterizedTypeReference<List<Pd>>() {
+					});
+			pds.put("MEMBER_ID", pd.getString("MEMBER_ID"));
+			List<Pd> meData = rest.postForList(IConstants.SC_SERVICE_KEY, "activities/listAllCodes", pds,
+					new ParameterizedTypeReference<List<Pd>>() {
+					});
+			if (allData.size() >= Integer.parseInt(pda.getString("PEOPLE_LIMIT")) && meData.size() == 0) {
+				rm.setFlag(false);
+				rm.setMessage("单码可用人数已达到上线");
+				return rm;
+			} else {
+				if (meData.size() == 0) {
+					pds.put("CREATE_TIME", DateUtil.getTime());
+					rest.post(IConstants.SC_SERVICE_KEY, "activities/saveCodes", pds, Pd.class);
+				}
+			}
+		}
+
 		if (StringUtils.isNotEmpty(pda.getString("SINGLE_LIMIT"))) {
 			Pd pds = new Pd();
 			pds.put("ACTIVITIES_ID", pd.getString("ACTIVITIES_ID"));
