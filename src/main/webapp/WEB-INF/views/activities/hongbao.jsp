@@ -17,6 +17,11 @@
 	<div class="page page-current">
 		<div class="content" style="background-image:url(<%=request.getContextPath()%>/file/image?FILENAME=${pda.BACK_PATH});background-size:100% 100%;">
 			<div class="row">
+			<div class="col-100">
+			<a href="http://suyuan.ablecloud.com/wx/code/${snid}" class="external button pull-left" style="margin-top:10px;margin-left:5px;color:#FFFFFF;border:1px #FFFFFF solid;">&lt; 返回首页</a>
+			</div>
+			</div>
+			<div class="row">
 			<div class="col-100"><div style="padding:30px;text-align:center;font-size:1rem;color:#FFFFFF;font-weight:bold;">${pda.TOPIC}</div></div>
 			</div>
 			<div class="row">
@@ -35,7 +40,7 @@
 			</div>
 			</div>
 		</div>
-		<%@ include file="../common/nav.jsp"%>
+		<nav class="bar bar-tab"><div style="text-align: center;margin:5px;color:#888888;font-size:14px;">Copyright ©2019 All Rights Reserved</div></nav>
 	</div>
 </div>
 </body>
