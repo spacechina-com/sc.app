@@ -35,7 +35,7 @@
 			</div>
 			</div>
 		</div>
-		<nav class="bar bar-tab"><div style="text-align: center;margin:5px;color:#888888;font-size:14px;">Copyright ©2019 All Rights Reserved</div></nav>
+		<%@ include file="../common/nav.jsp"%>
 	</div>
 </div>
 </body>
