@@ -48,8 +48,8 @@
 		    </div>
 		    <c:if test="${var.EXPRESSNO ne null}">
 		    <div class="card-footer">
-		      <span>单号：${var.EXPRESSNO}</span>
 		      <span></span>
+		      <span>单号:${var.EXPRESSNO}</span>
 		    </div>
 		    </c:if>
 		  </div>
