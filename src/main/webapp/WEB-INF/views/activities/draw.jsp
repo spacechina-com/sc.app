@@ -46,6 +46,12 @@
 				</div>
 			  </span>
 		    </div>
+		    <c:if test="${var.EXPRESSNO ne null}">
+		    <div class="card-footer">
+		      <span>单号：${var.EXPRESSNO}</span>
+		      <span></span>
+		    </div>
+		    </c:if>
 		  </div>
 			          </c:forEach> 	  
 		  <div class="content-block">
