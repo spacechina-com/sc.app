@@ -233,9 +233,10 @@ public class ActivitiesController extends BaseController {
 
 		int index = new Random().nextInt(temp.size());
 		String prizeitem_id = temp.get(index);
-		result[0] = prizeitem_id;
+
 		for (int i = 0; i < activitiesprizeitemsData.size(); i++) {
 			if (activitiesprizeitemsData.get(i).getString("ACTIVITIES_PRIZEITEMS_ID").equals(prizeitem_id)) {
+				result[0] = activitiesprizeitemsData.get(i).getString("PRIZEITEMS_ID");
 				result[1] = i + "";
 				result[2] = activitiesprizeitemsData.get(i).getString("DESCRIPTION");
 				result[3] = activitiesprizeitemsData.get(i).getString("AUTOHANDER");
