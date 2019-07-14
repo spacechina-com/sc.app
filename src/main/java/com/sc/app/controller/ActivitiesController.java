@@ -111,6 +111,7 @@ public class ActivitiesController extends BaseController {
 			Pd pds = new Pd();
 			pds.put("ACTIVITIES_ID", pd.getString("ACTIVITIES_ID"));
 			pds.put("MEMBER_ID", pd.getString("MEMBER_ID"));
+			pds.put("SNID", pd.getString("SNID"));
 			List<Pd> drawuserData = rest.postForList(IConstants.SC_SERVICE_KEY, "drawuser/listAll", pds,
 					new ParameterizedTypeReference<List<Pd>>() {
 					});
@@ -127,6 +128,7 @@ public class ActivitiesController extends BaseController {
 			Pd pdd = new Pd();
 			pdd.put("ACTIVITIES_ID", pd.getString("ACTIVITIES_ID"));
 			pdd.put("MEMBER_ID", pd.getString("MEMBER_ID"));
+			pdd.put("SNID", pd.getString("SNID"));
 			pdd.put("DAYSTR", DateUtil.getDay());
 			List<Pd> drawuserData = rest.postForList(IConstants.SC_SERVICE_KEY, "drawuser/listAll", pdd,
 					new ParameterizedTypeReference<List<Pd>>() {
@@ -168,6 +170,7 @@ public class ActivitiesController extends BaseController {
 
 		String snid = pd.getString("snid");
 
+		pd.put("SNID", snid);
 		List<Pd> drawuserData = rest.postForList(IConstants.SC_SERVICE_KEY, "drawuser/listAll", pd,
 				new ParameterizedTypeReference<List<Pd>>() {
 				});
