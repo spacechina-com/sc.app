@@ -219,7 +219,7 @@ public class ActivitiesController extends BaseController {
 		for (Pd one : activitiesprizeitemsData) {
 			int p = Integer.parseInt(one.getString("PERCENT"));
 			for (int i = 0; i < p; i++) {
-				temp.add(one.getString("PRIZEITEMS_ID"));
+				temp.add(one.getString("ACTIVITIES_PRIZEITEMS_ID"));
 			}
 		}
 
@@ -235,7 +235,7 @@ public class ActivitiesController extends BaseController {
 		String prizeitem_id = temp.get(index);
 		result[0] = prizeitem_id;
 		for (int i = 0; i < activitiesprizeitemsData.size(); i++) {
-			if (activitiesprizeitemsData.get(i).getString("PRIZEITEMS_ID").equals(prizeitem_id)) {
+			if (activitiesprizeitemsData.get(i).getString("ACTIVITIES_PRIZEITEMS_ID").equals(prizeitem_id)) {
 				result[1] = i + "";
 				result[2] = activitiesprizeitemsData.get(i).getString("DESCRIPTION");
 				result[3] = activitiesprizeitemsData.get(i).getString("AUTOHANDER");
