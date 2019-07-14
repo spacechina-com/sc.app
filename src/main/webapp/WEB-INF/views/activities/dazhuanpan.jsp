@@ -266,9 +266,9 @@ function drawRouletteWheel() {
 		
 		  var img= document.getElementById("image_"+i);
 		  img.onload=function(){  
-			  ctx.drawImage(img,-15,10);      
+			  ctx.drawImage(img,-15,10,30,30);      
 		  };  
-		  ctx.drawImage(img,-15,10); 
+		  ctx.drawImage(img,-15,10,30,30); 
 		 
 		  
 		  //添加对应图标
