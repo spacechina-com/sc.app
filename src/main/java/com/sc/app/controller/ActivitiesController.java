@@ -106,6 +106,8 @@ public class ActivitiesController extends BaseController {
 				}
 			}
 		}
+		
+		String day_unused = null;
 
 		if (StringUtils.isNotEmpty(pda.getString("SINGLE_LIMIT"))) {
 			Pd pds = new Pd();
@@ -119,10 +121,13 @@ public class ActivitiesController extends BaseController {
 				rm.setFlag(false);
 				rm.setMessage("单人抽奖次数已达到上线");
 				return rm;
+			}else {
+				day_unused = "单人剩余" + (Integer.parseInt(pda.getString("SINGLE_LIMIT")) - drawuserData.size() - 1)
+						+ "次抽奖机会";
 			}
 		}
 
-		String day_unused = null;
+		
 
 		if (StringUtils.isNotEmpty(pda.getString("DAY_LIMIT"))) {
 			Pd pdd = new Pd();
