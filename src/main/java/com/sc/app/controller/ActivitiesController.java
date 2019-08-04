@@ -7,6 +7,7 @@ import java.util.Random;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,9 @@ import com.sc.app.util.RestTemplateUtil;
 
 @Controller
 public class ActivitiesController extends BaseController {
+
+	@Value("${server.hostname}")
+	private String HOSTNAME;
 
 	@Autowired
 	RestTemplateUtil rest;
@@ -62,6 +66,8 @@ public class ActivitiesController extends BaseController {
 					"activities/listAllPrizeitems", pdap, new ParameterizedTypeReference<List<Pd>>() {
 					});
 			mv.addObject("activitiesprizeitemsData", activitiesprizeitemsData);
+
+			mv.addObject("HOSTNAME", HOSTNAME);
 
 		} else {
 			logger.info("无关联活动");
@@ -106,7 +112,7 @@ public class ActivitiesController extends BaseController {
 				}
 			}
 		}
-		
+
 		String day_unused = null;
 
 		if (StringUtils.isNotEmpty(pda.getString("SINGLE_LIMIT"))) {
@@ -121,13 +127,11 @@ public class ActivitiesController extends BaseController {
 				rm.setFlag(false);
 				rm.setMessage("单人抽奖次数已达到上线");
 				return rm;
-			}else {
+			} else {
 				day_unused = "单人剩余" + (Integer.parseInt(pda.getString("SINGLE_LIMIT")) - drawuserData.size() - 1)
 						+ "次抽奖机会";
 			}
 		}
-
-		
 
 		if (StringUtils.isNotEmpty(pda.getString("DAY_LIMIT"))) {
 			Pd pdd = new Pd();
