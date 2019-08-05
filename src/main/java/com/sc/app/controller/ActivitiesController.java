@@ -23,8 +23,8 @@ import com.sc.app.util.RestTemplateUtil;
 @Controller
 public class ActivitiesController extends BaseController {
 
-	@Value("${server.hostname}")
-	private String HOSTNAME;
+	@Value("${server.hostname.master}")
+	private String HOSTNAMEMASTER;
 
 	@Autowired
 	RestTemplateUtil rest;
@@ -67,7 +67,7 @@ public class ActivitiesController extends BaseController {
 					});
 			mv.addObject("activitiesprizeitemsData", activitiesprizeitemsData);
 
-			mv.addObject("HOSTNAME", HOSTNAME);
+			mv.addObject("HOSTNAMEMASTER", HOSTNAMEMASTER);
 
 		} else {
 			logger.info("无关联活动");
